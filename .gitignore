@@ -149,7 +149,9 @@ GitHub.sublime-settings
 .history
 
 # ignore collectstatic folder
-ai_chatapp/settings/static/
+ai_chatapp/static/admin/css
+ai_chatapp/static/admin/img
+ai_chatapp/static/admin/js
 
 # ignore temporary volume file in docker compose volume
 _data/
