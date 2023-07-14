@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-3u#3!ireur991-jz%=(in85jo7hub^(pfg#d^8qiz52hq*%bwk
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = "users_management.User"
 
 # Application definition
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "apps.users_management"
 ]
 
@@ -126,3 +127,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # Media Files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'apps.users_management.jwt.JWTAuthentication',
+    ],
+}
