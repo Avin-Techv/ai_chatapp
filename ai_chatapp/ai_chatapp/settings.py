@@ -32,7 +32,7 @@ AUTH_USER_MODEL = "users_management.User"
 # Application definition
 
 INSTALLED_APPS = [
-    #"users_management.apps.UsersManagementConfig",
+    
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "apps.users_management"
+    "apps.users_management",
+    "apps.helpers"
 ]
 
 MIDDLEWARE = [
@@ -55,10 +56,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "ai_chatapp.urls"
 
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        # "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -132,4 +135,5 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'apps.users_management.jwt.JWTAuthentication',
     ],
+
 }

@@ -1,4 +1,5 @@
 from django.db import models
+from apps.helpers.models import TrackingModel
 
 from django.contrib.auth.models import UnicodeUsernameValidator
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, UserManager
@@ -24,17 +25,15 @@ class MyUserManager(UserManager):
         """
         if not username:
             raise ValueError("The given username must be set")
-        
         if not email:
-            raise ValueError("The given email must be set")
-        
+            raise ValueError("The given email must be set ")
         email = self.normalize_email(email)
         # Lookup the real model class from the global app registry so this
         # manager method can be used in migrations. This is fine because
         # managers are by definition working on the real model.
         # GlobalUserModel = apps.get_model(
-        #     self.model._meta.app_label, self.model._meta.object_name
-        # )
+        #      self.model._meta.app_label, self.model._meta.object_name
+        #  )
         # username = GlobalUserModel.normalize_username(username)
         username = self.model.normalize_username(username)
         user = self.model(username=username, email=email, **extra_fields)
@@ -59,17 +58,8 @@ class MyUserManager(UserManager):
         return self._create_user(username, email, password, **extra_fields)
 
 
-class TrackingModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-        ordering = ('-created_at',)
-
-
 class User(AbstractBaseUser,PermissionsMixin,TrackingModel):
-    #,TrackingModel):
+
     """
     An abstract base class implementing a fully featured User model with
     admin-compliant permissions.
@@ -91,7 +81,7 @@ class User(AbstractBaseUser,PermissionsMixin,TrackingModel):
             "unique": _("A user with that username already exists."),
         },
     )
-    email = models.EmailField(_("email address"), blank=False,unique=True)
+    email = models.EmailField(_("email address"), blank=False,unique=True) 
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
@@ -108,7 +98,7 @@ class User(AbstractBaseUser,PermissionsMixin,TrackingModel):
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     email_verified = models.BooleanField(
         _("email_verified"),
-        default=True,
+        default=False,
         help_text=_(
             "Designates whether this user email_verified should be treated as active. "
         
